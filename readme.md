@@ -1,6 +1,6 @@
 # Keycloak service
 
-An attempt to setup a keycloak cluster service with Docker Compose.
+An attempt to setup a Keycloak cluster service with Docker Compose.
 
 This services includes:
 
