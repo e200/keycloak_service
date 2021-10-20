@@ -1,0 +1,27 @@
+version: '3.2'
+
+services:
+  db:
+    image: postgres:14
+    container_name: db
+    restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+  keycloak_1:
+    extends:
+      file: ./keycloak/service.yml
+      service: keycloak
+    depends_on:
+      - db
+
+  keycloak_2:
+    extends:
+      file: ./keycloak/service.yml
+      service: keycloak
+    depends_on:
+      - db
