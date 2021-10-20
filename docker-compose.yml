@@ -6,11 +6,18 @@ services:
     container_name: db
     restart: always
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - ./db/data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ${DB_DATABASE}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+  keycloak_2:
+    extends:
+      file: ./keycloak/service.yml
+      service: keycloak
+    depends_on:
+      - db
 
   keycloak_1:
     extends:
@@ -19,9 +26,13 @@ services:
     depends_on:
       - db
 
-  keycloak_2:
-    extends:
-      file: ./keycloak/service.yml
-      service: keycloak
+  proxy:
+    image: nginx:1.21.3
+    container_name: proxy
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
     depends_on:
-      - db
+      - keycloak_1
+      - keycloak_2
