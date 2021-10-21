@@ -1,6 +1,9 @@
 services:
   keycloak:
     image: jboss/keycloak:15.0.2
+    # volumes:
+    #  - ./themes/base:/opt/jboss/keycloak/themes/base
+    #  - ./themes/custom:/opt/jboss/keycloak/themes/custom
     environment:
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
