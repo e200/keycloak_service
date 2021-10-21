@@ -12,14 +12,16 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
 
-  keycloak_2:
+  k1:
+    container_name: k1
     extends:
       file: ./keycloak/service.yml
       service: keycloak
     depends_on:
       - db
 
-  keycloak_1:
+  k2:
+    container_name: k2
     extends:
       file: ./keycloak/service.yml
       service: keycloak
@@ -34,5 +36,5 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - keycloak_1
-      - keycloak_2
+      - k1
+      - k2
