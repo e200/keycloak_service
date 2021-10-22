@@ -15,7 +15,7 @@ services:
   k1:
     container_name: k1
     extends:
-      file: ./keycloak/service.yml
+      file: ./services/keycloak/service.yml
       service: keycloak
     depends_on:
       - db
@@ -23,7 +23,7 @@ services:
   k2:
     container_name: k2
     extends:
-      file: ./keycloak/service.yml
+      file: ./services/keycloak/service.yml
       service: keycloak
     depends_on:
       - db
@@ -32,7 +32,7 @@ services:
     image: nginx:1.21.3
     container_name: proxy
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./services/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 8080:8080
     depends_on:
